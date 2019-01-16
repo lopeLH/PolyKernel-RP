@@ -1,5 +1,6 @@
-# PolyKernel-RP
-Implementation of Random Projection for homogeneous polynomial kernel feature spaces, introduced in [1]
+# Polynomial Kernel Random Projection
+
+Implementation of Random Projection for homogeneous polynomial kernel feature spaces, introduced in [1]. This is a Python implementation, accelerated using [numba](http://numba.pydata.org/). The following pseudo-code describes the implemented algorithm. For a more high-level description of the algorithm, please refer to the original publication.
 
 ![algp pseudo](https://github.com/lopeLH/PolyKernel-RP/blob/master/repo_images/algorithm.png)
 
