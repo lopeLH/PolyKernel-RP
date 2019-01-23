@@ -3,8 +3,9 @@
 Implementation of Random Projection for homogeneous polynomial kernel feature spaces, introduced in [1]. This is a Python implementation, accelerated using [numba](http://numba.pydata.org/). Bellow you can see how the algorithm preserves pairwise distances from the kernel feature space as the size of the output space (n_components) grows. This visualization was generated for 500 MNIST samples with p=5000, t=20 and degree=2.
 
 <p align="center">
-<img src="https://github.com/lopeLH/PolyKernel-RP/blob/master/repo_images/fire.gif" width="900" />
+<img src="https://github.com/lopeLH/PolyKernel-RP/blob/master/repo_images/fire.gif" width="800" />
 </p>
+
 
 The following pseudo-code describes the implemented algorithm. For a more high-level description of the algorithm, please refer to the original publication.
 
