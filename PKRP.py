@@ -1,4 +1,4 @@
-from numba import jit
+from numba import guvectorize
 import numpy as np
 
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -102,21 +102,18 @@ class PolyKernelRandomProjection( BaseEstimator, TransformerMixin):
           
             
 
-            Xrp = optimized_transform(K , self.degree, self.t, self.p, self.n_components, self.idx, factor)
+            Xrp = optimized_transform(K , self.degree, self.t, self.n_components, self.idx, factor, Xrp, Xrp)
             
             return Xrp
 
     
-@jit(nopython=True,cache=True)
-def optimized_transform(K, degree, t, m, n_components, idx, factor):
-    Xrp = np.zeros((K.shape[0], n_components))
-    
-    for s in range(K.shape[0]):
-        for k in range(n_components):
-            for i in range(t):
-                temp = factor
-                for j in range(degree):
-                    temp = temp*K[s, idx[k, i, j]]
-                Xrp[s, k] = Xrp[s, k]+temp
-    
-    return Xrp
+@guvectorize(['void(float64[:], int64, int64, int64, intp[:,:,:], float64, float64[:], float64[:])'], '(p),(),(),(),(k,t,g),(),(k)->(k)',
+             target='parallel', nopython=True, cache=True)
+def optimized_transform(K, degree, t, n_components, idx, factor, zeros, out):
+
+    for k in range(n_components):
+        for i in range(t):
+            temp = factor
+            for j in range(degree):
+                temp = temp*K[idx[k, i, j]]
+            out[k] = out[k]+temp
