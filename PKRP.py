@@ -50,7 +50,11 @@ class PolyKernelRandomProjection( BaseEstimator, TransformerMixin):
             
             self.idx = self.genRandomIndexes(self.n_components, self.t, self.degree, self.p)
         else:
-            self.idx = np.random.randint(0, high=self.p, size=(self.n_components, self.t, self.degree))
+            self.idx = np.asarray([np.random.randint(0, high=self.p, size=(self.n_components, self.t, self.degree))])
+            # Should use the line bellow to avoid repetition of indexes in rows, 
+            # but randint is faster and works just as well in practice
+            # self.idx = np.asarray([np.random.choice( range(self.p), size=(self.t, self.degree),
+            #                                                         replace=False) for _ in range(self.n_components)])
             
         self.projectionMatrix = self.projectionMatrix.astype(np.float32)
     
