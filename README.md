@@ -7,7 +7,7 @@ Implementation of Random Projection for homogeneous polynomial kernel feature sp
 </p>
 
 
-The following pseudo-code describes the implemented algorithm. For a more high-level description of the algorithm, please refer to the original publication.
+The following pseudo-code describes the implemented algorithm. For a higher-level description of the algorithm, please refer to the original publication.
 
 <p align="center">
 <img src="https://github.com/lopeLH/PolyKernel-RP/blob/master/repo_images/algorithm.png" width="700" />
