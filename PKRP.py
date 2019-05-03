@@ -104,10 +104,7 @@ class PolyKernelRandomProjection( BaseEstimator, TransformerMixin):
                 K = np.dot(X, self.projectionMatrix)
                 factor = 1./np.sqrt(float(self.n_components * self.t))
           
-            
-
             Xrp = optimized_transform(K , self.degree, self.t, self.n_components, self.idx, factor, Xrp, Xrp)
-            
             return Xrp
 
     
@@ -117,7 +114,8 @@ def optimized_transform(K, degree, t, n_components, idx, factor, zeros, out):
 
     for k in range(n_components):
         for i in range(t):
-            temp = factor
-            for j in range(degree):
+            temp = K[idx[k, i, 0]]
+            for j in range(1, degree):
                 temp = temp*K[idx[k, i, j]]
             out[k] = out[k]+temp
+        out[k] = factor*out[k]
